@@ -1,10 +1,42 @@
-certifi==2020.12.5
-click @ file:///home/linux1/recipes/ci/click_1610990599742/work
-Flask @ file:///home/ktietz/src/ci/flask_1611932660458/work
-Flask-Cors @ file:///home/conda/feedstock_root/build_artifacts/flask_cors_1609901734655/work
-itsdangerous @ file:///home/ktietz/src/ci/itsdangerous_1611932585308/work
-Jinja2 @ file:///tmp/build/80754af9/jinja2_1612213139570/work
-MarkupSafe==1.1.1
-pyproj @ file:///home/conda/feedstock_root/build_artifacts/pyproj_1604702460299/work
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
-Werkzeug @ file:///home/ktietz/src/ci/werkzeug_1611932622770/work
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+_libgcc_mutex=0.1=main
+ca-certificates=2021.1.19=h06a4308_0
+certifi=2020.12.5=py38h06a4308_0
+click=7.1.2=pyhd3eb1b0_0
+flask=1.1.2=pyhd3eb1b0_0
+flask_cors=3.0.10=pyhd3deb0d_0
+gunicorn=20.0.4=py38_0
+itsdangerous=1.1.0=pyhd3eb1b0_0
+jinja2=2.11.3=pyhd3eb1b0_0
+jpeg=9b=h024ee3a_2
+krb5=1.18.2=h173b8e3_0
+ld_impl_linux-64=2.33.1=h53a641e_7
+libcurl=7.71.1=h20c2e04_1
+libedit=3.1.20191231=h14c3975_1
+libffi=3.3=he6710b0_2
+libgcc-ng=9.1.0=hdf63c60_0
+libssh2=1.9.0=h1ba5d50_1
+libstdcxx-ng=9.1.0=hdf63c60_0
+libtiff=4.1.0=h2733197_1
+lz4-c=1.9.3=h2531618_0
+markupsafe=1.1.1=py38h7b6447c_0
+ncurses=6.2=he6710b0_1
+openssl=1.1.1i=h27cfd23_0
+pip=20.3.3=py38h06a4308_0
+proj=7.2.0=h8b9fe22_0
+pyproj=3.0.0.post1=py38h8df5ac0_0
+python=3.8.5=h7579374_1
+python_abi=3.8=1_cp38
+readline=8.1=h27cfd23_0
+setuptools=52.0.0=py38h06a4308_0
+six=1.15.0=pyh9f0ad1d_0
+sqlite=3.33.0=h62c20be_0
+tk=8.6.10=hbc83047_0
+tzdata=2020f=h52ac0ba_0
+werkzeug=1.0.1=pyhd3eb1b0_0
+wheel=0.36.2=pyhd3eb1b0_0
+xz=5.2.5=h7b6447c_0
+zlib=1.2.11=h7b6447c_3
+zstd=1.4.5=h9ceee32_0
