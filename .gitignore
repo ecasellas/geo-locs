@@ -6,7 +6,7 @@
 /.tmp
 /build
 /dist
-
+/geolocs
 # dependencies
 /node_modules
 .package.swp
