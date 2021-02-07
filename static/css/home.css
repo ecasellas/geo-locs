@@ -12,6 +12,10 @@
     padding: 20px;
     text-align: center;
   }
+
+  .rowcolumn {
+    padding: 20px;
+  }
   
   /* Style the top navigation bar */
   .topnav {
