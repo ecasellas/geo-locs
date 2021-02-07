@@ -12,7 +12,7 @@ CORS(app)
 
 @app.route('/home')
 def home():
-    return render_template('new_home.html')
+    return render_template('home.html')
 
 @app.route('/navigation')
 def navigation():
