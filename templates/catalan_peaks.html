@@ -10,6 +10,7 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script><!-- #Copyright (c) 2012-2015 Calvin Metcalf -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
@@ -56,6 +57,20 @@
             id: 'mapbox.streets',
             attribution: mbAttr
         }).addTo(map);
+
+        function style(feature) {
+            return {
+                fillColor: 'darkgrey',
+                weight: 1.5,
+                opacity: 1,
+                color: '#D3D3D3',
+                fillOpacity: 0.0
+            };
+        }
+
+        var comarques = new L.GeoJSON.AJAX('/static/geojson/comarques.geojson',
+        { style: style }).addTo(map);
+
 
         var peakIcon = L.icon({
             iconUrl: '/static/images/icon-peak.png',
