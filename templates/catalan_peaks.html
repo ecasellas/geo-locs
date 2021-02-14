@@ -46,12 +46,17 @@
 
     <script>
 
+        var zoom = 7.5;
+        if (screen.width < 400){
+            zoom = 7;
+        }
+
         mbAttr = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
         mbUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
         map = L.map('map', {
-            center: [41.6, 2.0],
-            zoom: 7.5
+            center: [41.6, 1.8],
+            zoom: zoom
         });
 
         L.tileLayer(mbUrl, {
@@ -72,7 +77,6 @@
         var comarques = new L.GeoJSON.AJAX('/static/geojson/comarques.geojson',
             { style: style }).addTo(map);
 
-
         var peakIcon = L.icon({
             iconUrl: '/static/images/icon-peak.png',
             iconSize: [50, 50], // size of the icon
@@ -84,7 +88,6 @@
             iconSize: [50, 50], // size of the icon
             iconAnchor: [0, 50], // point of the icon which will correspond to marker's location
         });
-
 
         var popup = L.popup({});
 
