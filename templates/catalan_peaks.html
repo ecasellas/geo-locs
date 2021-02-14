@@ -10,14 +10,15 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script><!-- #Copyright (c) 2012-2015 Calvin Metcalf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <!-- #Copyright (c) 2012-2015 Calvin Metcalf -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body style="height: 100%; width: 100%; margin: 0;">
     <div class="w3-bar w3-amber" style="position: relative;">
         <a id="aHome" href="/" class="w3-button w3-amber w3-bar-item">Geo-loc</a>
-        <label for="selMod" class="w3-bar-item w3-amber">Escull modalitat: </label>
+        <label id="lblSel" for="selMod" class="w3-bar-item w3-amber">Escull modalitat: </label>
         <select name="selMod" id="selMod" class="w3-select w3-bar-item w3-amber">
             <option value="" selected="selected" hidden="hidden"> - Tria - </option>
             <option value=5>5 llocs</option>
@@ -27,9 +28,9 @@
         </select>
 
         <button id="btnPlay" disabled="true" class="w3-amber w3-button w3-bar-item">Juga!</button>
-        <label id="lblLoc" for="loc" class="w3-bar-item" style="visibility: hidden;">Lloc a cercar: </label>
+        <label id="lblLoc" for="loc" class="w3-bar-item" style="display: none;">Lloc a cercar: </label>
         <input name="loc" id="loc" readonly="true" class="w3-bar-item w3-input"
-            style="visibility: hidden; width:300px;"></input>
+            style="display: none; width:300px;"></input>
     </div>
     <div class="full-screen-div">
         <div id="map" style="width: 100%; height: 100%; position: absolute; left: 0;" class="full-screen-div">
@@ -69,7 +70,7 @@
         }
 
         var comarques = new L.GeoJSON.AJAX('/static/geojson/comarques.geojson',
-        { style: style }).addTo(map);
+            { style: style }).addTo(map);
 
 
         var peakIcon = L.icon({
@@ -153,9 +154,12 @@
                     } else {
                         alert("Enhorabona! Has arribat al final del joc! Has assolit " + points + " punts.")
                         document.getElementById("selMod").value = "";
+                        document.getElementById("selMod").style.display = "block";
                         document.getElementById("btnPlay").disabled = true;
-                        document.getElementById("loc").style.visibility = "hidden";
-                        document.getElementById("lblLoc").style.visibility = "hidden";
+                        document.getElementById("btnPlay").style.display = "block";
+                        document.getElementById("lblSel").style.display = "block";
+                        document.getElementById("loc").style.display = "none";
+                        document.getElementById("lblLoc").style.display = "none";
                         points = null;
                     }
                 }
@@ -168,8 +172,11 @@
 
         var btnPlay = document.getElementById("btnPlay");
         btnPlay.onclick = function (e) {
-            document.getElementById("lblLoc").style.visibility = "visible";
-            document.getElementById("loc").style.visibility = "visible";
+            document.getElementById("selMod").style.display = "none";
+            document.getElementById("btnPlay").style.display = "none";
+            document.getElementById("lblSel").style.display = "none";
+            document.getElementById("lblLoc").style.display = "block";
+            document.getElementById("loc").style.display = "block";
             btnPlay.disabled = true;
             iLoc = 0
             map.on('click', onMapClick)
