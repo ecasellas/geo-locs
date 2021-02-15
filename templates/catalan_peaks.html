@@ -59,7 +59,6 @@
         document.getElementById("map").style.height = String(mapHeight) + "px";
 
         $(window).on('resize', function () {
-            console.log("asdasdas");
             var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
             document.getElementById("map").style.height = String(mapHeight) + "px";
         });
@@ -203,6 +202,10 @@
             btnPlay.disabled = true;
             iLoc = 0
             map.on('click', onMapClick)
+
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
+
             var numP = document.getElementById("selMod").value;
             var q = "{{ url_for('load_locs', option='optP', num='numP')}}"
                 .replace("optP", 'catPeaks')
