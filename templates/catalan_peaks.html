@@ -41,13 +41,22 @@
                 <button id="btnBox" class="w3-button w3-sand"
                     style="position: absolute; bottom: 10%; left: 50%; transform: translate(-50%, +10%);">D'acord</button>
             </div>
+            <div id="boxEnd" hidden="true" class="w3-amber"
+                style="background-color: blanchedalmond; width: 200px; height: 110px; z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div id="msgEnd" style="position: absolute; top: 10%; left: 10%; right: 10%; text-align: center;"></div>
+                <a id="btnHome" href="/" class="w3-button w3-sand"
+                    style="position: absolute; bottom: 10%; right: 10%; transform: translate(+10%, +10%);">Inici</a>
+                <button id="btnAgain" class="w3-button w3-sand"
+                    style="position: absolute; bottom: 10%; left: 10%; transform: translate(-10%, +10%);">Torna a
+                    jugar</button>
+            </div>
         </div>
     </div>
 
     <script>
 
         var zoom = 7.5;
-        if (screen.width < 400){
+        if (screen.width < 400) {
             zoom = 7;
         }
 
@@ -146,7 +155,7 @@
                     mrkPos.removeFrom(map);
 
                     document.getElementById('boxMsg').hidden = true;
-                    map.setView([41.6, 1.8], zoom=zoom);
+                    map.setView([41.6, 1.8], zoom = zoom);
 
                     iLoc = iLoc + 1;
                     if (iLoc < Number(document.getElementById("selMod").value)) {
@@ -155,7 +164,9 @@
                         e.stopPropagation()
                         map.on('click', onMapClick);
                     } else {
-                        alert("Enhorabona! Has arribat al final del joc! Has assolit " + points + " punts.")
+                        map.off('click', onMapClick);
+                        document.getElementById("msgEnd").innerText = "Enhorabona! Has arribat al final del joc! Has assolit " + points + " punts.";
+                        document.getElementById("boxEnd").hidden = false;
                         document.getElementById("selMod").value = "";
                         document.getElementById("selMod").style.display = "block";
                         document.getElementById("btnPlay").disabled = true;
@@ -193,6 +204,20 @@
                 locRandom = locs[iLoc]['id'];
             })
         }
+
+        var btnAgain = document.getElementById("btnAgain");
+        btnAgain.onclick = function (e) {
+            document.getElementById("selMod").value = "";
+            document.getElementById("selMod").style.display = "block";
+            document.getElementById("btnPlay").disabled = true;
+            document.getElementById("btnPlay").style.display = "block";
+            document.getElementById("lblSel").style.display = "block";
+            document.getElementById("loc").style.display = "none";
+            document.getElementById("lblLoc").style.display = "none";
+            document.getElementById("boxEnd").hidden = true;
+            points = null;
+        }
+
     </script>
 </body>
 
