@@ -16,7 +16,7 @@
 </head>
 
 <body style="height: 100%; width: 100%; margin: 0;">
-    <div class="w3-bar w3-amber" style="position: relative;">
+    <div id="navBar" class="w3-bar w3-amber" style="position: relative;">
         <a id="aHome" href="/" class="w3-button w3-amber w3-bar-item">Geo-loc</a>
         <label id="lblSel" for="selMod" class="w3-bar-item w3-amber">Mode: </label>
         <select name="selMod" id="selMod" class="w3-select w3-bar-item w3-amber">
@@ -33,7 +33,7 @@
             style="display: none; width:300px;"></input>
     </div>
     <div class="full-screen-div">
-        <div id="map" style="width: 100%; height: 100%; position: absolute; left: 0;" class="full-screen-div">
+        <div id="map" style="width: 100%; height: 858px; left: 0; position: absolute;">
             <div id="boxMsg" hidden="true" class="w3-amber"
                 style="background-color: blanchedalmond; width: 200px; height: 110px; z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                 <div id="msgResult" style="position: absolute; top: 10%; left: 10%; right: 10%; text-align: center;">
@@ -54,6 +54,15 @@
     </div>
 
     <script>
+
+        var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+        document.getElementById("map").style.height = String(mapHeight) + "px";
+
+        $(window).on('resize', function () {
+            console.log("asdasdas");
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
+        });
 
         var zoom = 7.5;
         if (screen.width < 400) {
