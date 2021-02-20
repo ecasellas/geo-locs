@@ -1,7 +1,7 @@
  /* Style all font awesome icons */
  .fa {
     padding: 20px;
-    font-size: 40px;
+    font-size: 20px;
     width: 50px;
     text-align: center;
     text-decoration: none;
@@ -17,7 +17,7 @@
   /* Facebook */
   .fa-github {
     background: #FFBF00;
-    color: white;
+    color: rgb(10, 10, 10);
   }
 
   /* Twitter */
