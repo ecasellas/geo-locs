@@ -1,4 +1,4 @@
-# geo-locs
+# [geo-locs](https://geo-locs.herokuapp.com/)
 
 ![Heroku](https://heroku-badge.herokuapp.com/?app=geo-locs)
 
