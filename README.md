@@ -4,7 +4,7 @@
 
 Basat en el joc [GeoGuessr](https://www.geoguessr.com/) on mitjançant una imatge de Google Street View has d'identificar el lloc on et trobes, geo-locs et mostra el nom d'un cim emblemàtic de Catalunya que s'ha de localitzar en un mapa.
 
-La llista de cims disponibles prové del repte "100 cims" de la Federació d'Entitats Excursionistes de Catalunya [FEEC](https://www.feec.cat/activitats/100-cims/). Agrupa un total de 308 muntanyes que es troben a Catalunya, Catalunya Nord i Andorra.
+La llista de cims disponibles prové del repte "100 cims" de la Federació d'Entitats Excursionistes de Catalunya ([FEEC](https://www.feec.cat/activitats/100-cims/)). Agrupa un total de 308 muntanyes que es troben a Catalunya, Catalunya Nord i Andorra.
 
 ## Com jugar-hi?
 
