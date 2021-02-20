@@ -203,9 +203,6 @@
             iLoc = 0
             map.on('click', onMapClick)
 
-            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
-            document.getElementById("map").style.height = String(mapHeight) + "px";
-
             var numP = document.getElementById("selMod").value;
             var q = "{{ url_for('load_locs', option='optP', num='numP')}}"
                 .replace("optP", 'catPeaks')
@@ -215,6 +212,9 @@
                 document.getElementById('loc').value = locs[iLoc]['name'] + " - " + locs[iLoc]['altitude'];
                 locRandom = locs[iLoc]['id'];
             })
+
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
         }
 
         var btnAgain = document.getElementById("btnAgain");
