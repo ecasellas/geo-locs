@@ -1,6 +1,6 @@
 # [geo-locs](https://geo-locs.herokuapp.com/)
 
-![Heroku](https://heroku-badge.herokuapp.com/?app=geo-locs)
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=geo-locs>&style=flat)
 
 Inspirat en el joc [GeoGuessr](https://www.geoguessr.com/) on mitjançant una imatge de Google Street View has d'identificar el lloc on et trobes, geo-locs et mostra el nom d'un cim emblemàtic de Catalunya que s'ha de localitzar en un mapa.
 
