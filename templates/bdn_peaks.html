@@ -72,7 +72,7 @@
         mbUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
         map = L.map('map', {
-            center: [41.45, 2.227],
+            center: [41.455, 2.24],
             zoom: zoom
         });
 
@@ -163,7 +163,7 @@
                     mrkPos.removeFrom(map);
 
                     document.getElementById('boxMsg').hidden = true;
-                    map.setView([41.45, 2.227], zoom = zoom);
+                    map.setView([41.455, 2.24], zoom = zoom);
 
                     iLoc = iLoc + 1;
                     if (iLoc < Number(document.getElementById("selMod").value)) {
