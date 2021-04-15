@@ -84,14 +84,14 @@
         function style(feature) {
             return {
                 fillColor: 'darkgrey',
-                weight: 1.5,
+                weight: 3.5,
                 opacity: 1,
                 color: '#D3D3D3',
                 fillOpacity: 0.0
             };
         }
 
-        var comarques = new L.GeoJSON.AJAX('/static/geojson/comarques.geojson',
+        var comarques = new L.GeoJSON.AJAX('/static/geojson/municipi_bdn.geojson',
             { style: style }).addTo(map);
 
         var peakIcon = L.icon({
