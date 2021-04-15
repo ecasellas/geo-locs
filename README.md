@@ -2,13 +2,12 @@
 
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=geo-locs&style=flat)
 
-Inspirat en el joc [GeoGuessr](https://www.geoguessr.com/) on mitjançant una imatge de Google Street View has d'identificar el lloc on et trobes, geo-locs et mostra el nom d'un cim emblemàtic de Catalunya que s'ha de localitzar en un mapa.
+Inspirat en el joc [GeoGuessr](https://www.geoguessr.com/) on mitjançant una imatge de Google Street View has d'identificar on et trobes, geo-locs et mostra el nom d'un indret de Catalunya que s'ha de localitzar en un mapa.
 
-La llista de cims disponibles prové del repte "100 cims" de la Federació d'Entitats Excursionistes de Catalunya ([FEEC](https://www.feec.cat/activitats/100-cims/)). Agrupa un total de 308 muntanyes que es troben a Catalunya, Catalunya Nord i Andorra.
-
+Hi ha diferents modalitats en funció dels llocs a buscar. De moment podeu jugar amb la llista de cims disponibles prové del repte "100 cims" de la Federació d'Entitats Excursionistes de Catalunya ([FEEC](https://www.feec.cat/activitats/100-cims/)) i amb els 40 turons i colls del terme municipal de Badalona ([Revista de Badalona](https://revistadebadalona.cat/les-muntanyes-de-badalona-tenen-nom-propi/))
 ## Com jugar-hi?
 
-Entrant a [geo-locs](https://geo-locs.herokuapp.com/) hi trobareu les instruccions i els jocs disponibles. De moment només hi ha la possibilitat de jugar amb els "Cims emblemàtics de Catalunya".
+Entrant a [geo-locs](https://geo-locs.herokuapp.com/) hi trobareu les instruccions i els jocs disponibles. De moment només hi ha la possibilitat de jugar amb els "Cims emblemàtics de Catalunya" i "Les muntanyes de Badalona tenen nom propi".
 
 El joc consisteix en encertar la localització de diferents elements que se't mostraran en un mapa.
 
