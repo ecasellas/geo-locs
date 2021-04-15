@@ -26,15 +26,23 @@ def instructions():
 def catalan_peaks():
     return render_template('catalan_peaks.html')
 
+@app.route('/bdn-peaks')
+def bdn_peaks():
+    return render_template('bdn_peaks.html')
+
 @app.route('/check-distance/<lon>/<lat>/<peak>', methods=['GET', 'POST'])
 def check_distance(lon, lat, peak):
 
     xy = Transformer.from_crs(4326, 25831).transform(float(lat), float(lon))
-
+    print(peak)
     if peak[0:2] == 'catPeaks':
         loc_file = './data/catalan_peaks_100.json'
+    elif peak[0:3] == 'bdn':
+        loc_file = './data/bdn_peaks_40.json'
+        km = 3
     else:
         loc_file = './data/catalan_peaks_100.json'
+        km = 100
     
     with open(loc_file, 'r') as f:
         locs = json.load(f)
@@ -50,7 +58,7 @@ def check_distance(lon, lat, peak):
 
     dist = round((d_x**2 + d_y**2)**(1/2)/1000, 1)
 
-    points = round((exp(-3*dist/100)) * 1000, 0)
+    points = round((exp(-3*dist/km)) * 1000, 0)
 
     return {'distance': dist, 'points': points,
             'x_loc': lonlat_loc[1], 'y_loc': lonlat_loc[0],
@@ -60,6 +68,8 @@ def check_distance(lon, lat, peak):
 def load_locs(option, num):
     if option == 'cat':
         loc_file = './data/catalan_peaks_100.json'
+    elif option == 'bdnPeaks':
+        loc_file = './data/bdn_peaks_40.json'
     else:
         loc_file = './data/catalan_peaks_100.json'
 

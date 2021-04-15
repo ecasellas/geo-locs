@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <!-- #Copyright (c) 2012-2015 Calvin Metcalf -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body style="height: 100%; width: 100%; margin: 0;">
+    <div id="navBar" class="w3-bar w3-amber" style="position: relative;">
+        <a id="aHome" href="/" class="w3-button w3-amber w3-bar-item">Geo-locs</a>
+        <label id="lblSel" for="selMod" class="w3-bar-item w3-amber">Mode: </label>
+        <select name="selMod" id="selMod" class="w3-select w3-bar-item w3-amber">
+            <option value="" selected="selected" hidden="hidden"> - Tria - </option>
+            <option value=5>5 llocs</option>
+            <option value=10>10 llocs</option>
+            <option value=20>20 llocs</option>
+            <option value=30>30 llocs</option>
+        </select>
+
+        <button id="btnPlay" disabled="true" class="w3-amber w3-button w3-bar-item">Juga!</button>
+        <label id="lblLoc" for="loc" class="w3-bar-item" style="display: none;">Lloc a cercar: </label>
+        <input name="loc" id="loc" readonly="true" class="w3-bar-item w3-input"
+            style="display: none; width:300px;"></input>
+    </div>
+    <div class="full-screen-div">
+        <div id="map" style="width: 100%; height: 858px; left: 0; position: absolute;">
+            <div id="boxMsg" hidden="true" class="w3-amber"
+                style="background-color: blanchedalmond; width: 200px; height: 110px; z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div id="msgResult" style="position: absolute; top: 10%; left: 10%; right: 10%; text-align: center;">
+                </div>
+                <button id="btnBox" class="w3-button w3-sand"
+                    style="position: absolute; bottom: 10%; left: 50%; transform: translate(-50%, +10%);">D'acord</button>
+            </div>
+            <div id="boxEnd" hidden="true" class="w3-amber"
+                style="background-color: blanchedalmond; width: 200px; height: 110px; z-index: 1000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div id="msgEnd" style="position: absolute; top: 10%; left: 10%; right: 10%; text-align: center;"></div>
+                <a id="btnHome" href="/" class="w3-button w3-sand"
+                    style="position: absolute; bottom: 10%; right: 10%; transform: translate(+10%, +10%);">Inici</a>
+                <button id="btnAgain" class="w3-button w3-sand"
+                    style="position: absolute; bottom: 10%; left: 10%; transform: translate(-10%, +10%);">Torna a
+                    jugar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+        document.getElementById("map").style.height = String(mapHeight) + "px";
+
+        $(window).on('resize', function () {
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
+        });
+
+        var zoom = 13;
+        if (screen.width < 400) {
+            zoom = 12.5;
+        }
+
+        mbAttr = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+        mbUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+        map = L.map('map', {
+            center: [41.455, 2.24],
+            zoom: zoom
+        });
+
+        L.tileLayer(mbUrl, {
+            id: 'mapbox.streets',
+            attribution: mbAttr
+        }).addTo(map);
+
+        function style(feature) {
+            return {
+                fillColor: 'darkgrey',
+                weight: 3.5,
+                opacity: 1,
+                color: '#D3D3D3',
+                fillOpacity: 0.0
+            };
+        }
+
+        var comarques = new L.GeoJSON.AJAX('/static/geojson/municipi_bdn.geojson',
+            { style: style }).addTo(map);
+
+        var peakIcon = L.icon({
+            iconUrl: '/static/images/icon-peak.png',
+            iconSize: [50, 50], // size of the icon
+            iconAnchor: [25, 35], // point of the icon which will correspond to marker's location
+        });
+
+        var locIcon = L.icon({
+            iconUrl: '/static/images/icon-pin.png',
+            iconSize: [50, 50], // size of the icon
+            iconAnchor: [0, 50], // point of the icon which will correspond to marker's location
+        });
+
+        var popup = L.popup({});
+
+        btnOk = L.DomUtil.create('button', 'leaflet-buttons-control-button');
+        btnOk.textContent = 'Confirma';
+        btnOk.onclick = onConfirmClick;
+
+        var latlng = null;
+        var locRandom = null;
+        var iLoc = null;
+        var locs = null;
+        var points = null;
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent(btnOk)
+                .openOn(map);
+            latlng = e.latlng;
+        }
+
+        function onConfirmClick(e) {
+            popup.removeFrom(map);
+            map.off('click', onMapClick);
+            var q = "{{ url_for('check_distance', lon='lonP', lat='latP', peak='peakP') }}"
+                .replace('lonP', latlng.lng)
+                .replace('latP', latlng.lat)
+                .replace('peakP', locRandom);
+            $.ajax(q).done(function (reply) {
+                console.log(reply);
+                var markerBounds = [[reply['y_loc'], reply['x_loc']], [reply['y'], reply['x']]];
+                var latlngBounds = L.latLngBounds(markerBounds)
+                map.fitBounds(latlngBounds);
+                var linLoc = L.polyline(markerBounds, { opacity: 1, color: '#FFBF00' }).addTo(map);
+                var mrkLoc = L.marker([reply['y_loc'], reply['x_loc']], { icon: peakIcon }).addTo(map);
+                var mrkPos = L.marker([reply['y'], reply['x']], { icon: locIcon }).addTo(map);
+
+                points = points + reply['points']
+
+                if (reply['distance'] < 0.1) {
+                    msg_d = "Fantàstic! \\o/ Només t'has allunyat " + reply['distance'] + " km de l'objectiu! Has aconseguit " + reply['points'] + " punts!";
+                } else if (reply['distance'] < 0.5) {
+                    msg_d = "Molt bé! T'has allunyat " + reply['distance'] + " km de l'objectiu! Has aconseguit " + reply['points'] + " punts!";
+                } else if (reply['distance'] < 1.5) {
+                    msg_d = "Prou bé! T'has allunyat " + reply['distance'] + " km de l'objectiu! Has aconseguit " + reply['points'] + " punts";
+                } else {
+                    msg_d = "Vaja! T'has allunyat " + reply['distance'] + " km de l'objectiu! Has aconseguit " + reply['points'] + " punts";
+                }
+
+                document.getElementById("msgResult").textContent = msg_d;
+                document.getElementById('boxMsg').hidden = false;
+
+                document.getElementById("btnBox").onclick = function (e) {
+                    linLoc.removeFrom(map);
+                    mrkLoc.removeFrom(map);
+                    mrkPos.removeFrom(map);
+
+                    document.getElementById('boxMsg').hidden = true;
+                    map.setView([41.455, 2.24], zoom = zoom);
+
+                    iLoc = iLoc + 1;
+                    if (iLoc < Number(document.getElementById("selMod").value)) {
+                        document.getElementById('loc').value = locs[iLoc]['name'];
+                        locRandom = locs[iLoc]['id'];
+                        e.stopPropagation()
+                        map.on('click', onMapClick);
+                    } else {
+                        map.off('click', onMapClick);
+                        document.getElementById("msgEnd").innerText = "Enhorabona! Has arribat al final del joc! Has assolit " + points + " punts.";
+                        document.getElementById("boxEnd").hidden = false;
+                        document.getElementById("selMod").value = "";
+                        document.getElementById("selMod").style.display = "block";
+                        document.getElementById("btnPlay").disabled = true;
+                        document.getElementById("btnPlay").style.display = "block";
+                        document.getElementById("lblSel").style.display = "block";
+                        document.getElementById("loc").style.display = "none";
+                        document.getElementById("lblLoc").style.display = "none";
+                        points = null;
+                    }
+                }
+            });
+        }
+
+        document.getElementById("selMod").onchange = function (e) {
+            document.getElementById("btnPlay").disabled = false;
+        }
+
+        var btnPlay = document.getElementById("btnPlay");
+        btnPlay.onclick = function (e) {
+            document.getElementById("selMod").style.display = "none";
+            document.getElementById("btnPlay").style.display = "none";
+            document.getElementById("lblSel").style.display = "none";
+            document.getElementById("lblLoc").style.display = "block";
+            document.getElementById("loc").style.display = "block";
+            btnPlay.disabled = true;
+            iLoc = 0
+            map.on('click', onMapClick)
+
+            var numP = document.getElementById("selMod").value;
+            var q = "{{ url_for('load_locs', option='optP', num='numP')}}"
+                .replace("optP", 'bdnPeaks')
+                .replace("numP", numP)
+            $.ajax(q).done(function (reply) {
+                locs = reply['locs']
+                document.getElementById('loc').value = locs[iLoc]['name'];
+                locRandom = locs[iLoc]['id'];
+            })
+
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
+        }
+
+        var btnAgain = document.getElementById("btnAgain");
+        btnAgain.onclick = function (e) {
+            document.getElementById("selMod").value = "";
+            document.getElementById("selMod").style.display = "block";
+            document.getElementById("btnPlay").disabled = true;
+            document.getElementById("btnPlay").style.display = "block";
+            document.getElementById("lblSel").style.display = "block";
+            document.getElementById("loc").style.display = "none";
+            document.getElementById("lblLoc").style.display = "none";
+            document.getElementById("boxEnd").hidden = true;
+            points = null;
+        }
+
+    </script>
+</body>
+
+</html>
