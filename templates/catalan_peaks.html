@@ -183,6 +183,9 @@
                         document.getElementById("loc").style.display = "none";
                         document.getElementById("lblLoc").style.display = "none";
                         points = null;
+
+                        var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+                        document.getElementById("map").style.height = String(mapHeight) + "px";
                     }
                 }
             });
@@ -228,6 +231,9 @@
             document.getElementById("lblLoc").style.display = "none";
             document.getElementById("boxEnd").hidden = true;
             points = null;
+
+            var mapHeight = $(window).height() - document.getElementById("navBar").clientHeight;
+            document.getElementById("map").style.height = String(mapHeight) + "px";
         }
 
     </script>
